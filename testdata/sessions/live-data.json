@@ -1,0 +1,26 @@
+{
+  "$id": "1",
+  "Result": {
+    "Currency": "NOK",
+    "isSuspended": false,
+    "TotalWh": 9885.000,
+    "LiveKWH": 6.899,
+    "LiveAmps": 0.00,
+    "LiveAmpsExport": null,
+    "LiveKW": 6.899,
+    "LiveVolts": 0.00,
+    "LiveKWExport": null,
+    "TotalWhExport": null,
+    "SoC": null,
+    "FirstSoC": null,
+    "LiveAmps_L1": 0.00,
+    "LiveAmps_L2": 0.00,
+    "LiveAmps_L3": 0.00,
+    "CurrentCost": 14.83,
+    "CurrentCostCharging": 14.83,
+    "CurrentCostChargingTime": 0.0,
+    "CurrentCostOccupied": 0.0,
+    "StartupCost": 0.00,
+    "IsFinished": false
+  }
+}
