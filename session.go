@@ -1,9 +1,14 @@
 package smartcharge
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 )
+
+type SessionService struct {
+	client *Client
+}
 
 type LiveDataResult struct {
 	Result LiveData
@@ -17,8 +22,8 @@ type LiveData struct {
 	LiveAmps                float64 `json:"LiveAmps"`
 	LiveKW                  float64 `json:"LiveKW"`
 	LiveVolts               float64 `json:"LiveVolts"`
-	LiveAmps_L1             float64 `json:"LiveAmps_L3"`
-	LiveAmps_L2             float64 `json:"LiveAmps_L3"`
+	LiveAmps_L1             float64 `json:"LiveAmps_L1"`
+	LiveAmps_L2             float64 `json:"LiveAmps_L2"`
 	LiveAmps_L3             float64 `json:"LiveAmps_L3"`
 	CurrentCost             float64 `json:"CurrentCost"`
 	CurrentCostCharging     float64 `json:"CurrentCostCharging"`
@@ -43,10 +48,6 @@ func (s *SessionService) GetLiveData(sessionId int) (*LiveDataResult, *http.Resp
 	}
 
 	return liveData, resp, err
-}
-
-type SessionService struct {
-	client *Client
 }
 
 type SessionsResult struct {
@@ -89,9 +90,13 @@ func (s *SessionService) GetSession(sessionId int) (*SessionResult, *http.Respon
 	return session, resp, err
 }
 
-func (s *SessionService) GetActiveSessions(userId int) (*SessionsResult, *http.Response, error) {
+func (s *SessionService) GetActiveSessions() (*SessionsResult, *http.Response, error) {
 
-	reqUrl := "v2/ServiceSessions/Active/" + strconv.Itoa(userId)
+	if s.client.Auth == nil {
+		return nil, nil, fmt.Errorf("not authenticated")
+	}
+
+	reqUrl := "v2/ServiceSessions/Active/" + strconv.Itoa(s.client.Auth.UserId)
 	req, err := s.client.NewRequest("GET", reqUrl, nil)
 	if err != nil {
 		return nil, nil, err

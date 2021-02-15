@@ -42,7 +42,7 @@ func TestSessionService_GetActiveSessions(t *testing.T) {
 	r := *NewMockResponseOkString(string(jsonBytes))
 	c := NewMockClient(r)
 
-	activeSessions, _, err := c.Session.GetActiveSessions(123)
+	activeSessions, _, err := c.Session.GetActiveSessions()
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(activeSessions.Result))
 	assert.Equal(t, 1299, activeSessions.Result[0].ChargingBoxID)

@@ -14,8 +14,12 @@ import (
 
 const (
 	LibraryVersion = "0.1.0"
-	defaultBaseUrl = "https://api.smartcharge.io/"
+	DefaultBaseUrl = "https://api.smartcharge.io/"
 	userAgent      = "smartcharge-go/" + LibraryVersion
+
+	DefaultAppId     = "40a38b82-d7a5-4c0f-bd25-9736bc20a4d2"
+	DefaultAppToken  = ""
+	DefaultPushState = "unknown"
 )
 
 type Client struct {
@@ -25,15 +29,19 @@ type Client struct {
 
 	UserAgent string
 
+	Auth *Authentication
+
 	ChargePoint *ChargePointService
 	Session     *SessionService
+	Invoice     *InvoiceService
 }
 
 func NewClient(httpClient *http.Client) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
-	baseUrl, _ := url.Parse(defaultBaseUrl)
+
+	baseUrl, _ := url.Parse(DefaultBaseUrl)
 
 	c := &Client{
 		httpClient: httpClient,
@@ -43,8 +51,13 @@ func NewClient(httpClient *http.Client) *Client {
 
 	c.ChargePoint = &ChargePointService{client: c}
 	c.Session = &SessionService{client: c}
+	c.Invoice = &InvoiceService{client: c}
 
 	return c
+}
+
+func (c *Client) SetAuthentication(auth *Authentication) {
+	c.Auth = auth
 }
 
 func (c *Client) NewRequest(method string, urlStr string, body interface{}) (*http.Request, error) {
@@ -73,6 +86,11 @@ func (c *Client) NewRequest(method string, urlStr string, body interface{}) (*ht
 	if c.UserAgent != "" {
 		req.Header.Add("User-Agent", c.UserAgent)
 	}
+
+	if c.Auth != nil {
+		req.Header.Add("Authorization", "Bearer "+c.Auth.AccessToken)
+	}
+
 	return req, nil
 }
 
@@ -104,6 +122,7 @@ func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 	return resp, err
 }
 
+// TODO handle 401
 func CheckResponse(r *http.Response) error {
 	c := r.StatusCode
 	if 200 <= c && c <= 299 {

@@ -52,5 +52,16 @@ func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 func NewMockClient(response MockResponse) *Client {
 	t := &mockTransport{resp: response}
 	c := &http.Client{Transport: t}
-	return NewClient(c)
+
+	auth := &Authentication{
+		UserId:       123,
+		CustomerId:   123,
+		AccessToken:  "",
+		RefreshToken: "",
+	}
+
+	client := NewClient(c)
+	client.SetAuthentication(auth)
+
+	return client
 }
