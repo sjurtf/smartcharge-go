@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -56,7 +57,23 @@ func NewClient(httpClient *http.Client) *Client {
 	return c
 }
 
-func (c *Client) SetAuthentication(auth *Authentication) {
+func (c *Client) Authenticate(email, password string) {
+	if email == "" {
+		log.Fatalln("email cannot be empty")
+	}
+
+	if password == "" {
+		log.Fatalln("password cannot empty")
+	}
+
+	auth, err := authenticate(email, password)
+	if err != nil {
+		log.Fatalf("unable to authenticate: %s", err)
+	}
+	c.setAuthentication(auth)
+}
+
+func (c *Client) setAuthentication(auth *Authentication) {
 	c.Auth = auth
 }
 

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -44,23 +43,6 @@ type Authentication struct {
 	CustomerId   int
 	AccessToken  string
 	RefreshToken string
-}
-
-func Authenticate(email, password string, client *Client) {
-	if email == "" {
-		log.Fatalln("email cannot be empty")
-	}
-
-	if password == "" {
-		log.Fatalln("password cannot empty")
-	}
-
-	auth, err := authenticate(email, password)
-	if err != nil {
-		log.Fatalf("unable to authenticate: %s", err)
-	}
-
-	client.SetAuthentication(auth)
 }
 
 func authenticate(email string, password string) (*Authentication, error) {
