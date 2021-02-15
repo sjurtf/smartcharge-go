@@ -1,0 +1,45 @@
+{
+  "$id": "1",
+  "Result": {
+    "success": true,
+    "datas": {
+      "Invoices": [
+        {
+          "PK_InvoiceID": 414005,
+          "Invoice_No": "377202",
+          "TransactionFee": 0.00000,
+          "TotalPrice": 169.8605,
+          "TotalVAT": 33.9721,
+          "DateIssued": "2021-02-01T06:36:28.017",
+          "DateDue": "2021-02-01T06:36:28.017",
+          "DatePaid": "2021-02-01T06:37:01.117",
+          "Currency": "NOK",
+          "TotalPriceExcludingVAT": 135.8884,
+          "TransactionFeeVAT": 0.00000,
+          "PaymentResult": "Paid",
+          "TotalKWH": 87.407000,
+          "StartupCost": 0.000000,
+          "StartupCostVAT": 0.00000,
+          "FK_CustomerID": 33227,
+          "CustomerName": "Sjur Fredriksen",
+          "PhoneNumber": null,
+          "Email": null,
+          "DialCode": "",
+          "InvoiceType": "EndCustomer",
+          "FK_CompanyID": null,
+          "TotalPriceKWh": 131.07,
+          "TotalPriceChargingTime": 0.00,
+          "TotalPriceNotCharging": 7.7500,
+          "TotalPriceOccupied": 0.00,
+          "TotalTimeCharging": 87927,
+          "TotalTimeOccupied": 925,
+          "IsTripletexInvoice": false,
+          "ExternalInvoiceNumber": null,
+          "NonChargingItems": [],
+          "NonChargingItemsGroupedByStation": []
+        }
+      ],
+      "Count": 1
+    }
+  }
+}

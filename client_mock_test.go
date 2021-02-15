@@ -61,7 +61,7 @@ func NewMockClient(response MockResponse) *Client {
 	}
 
 	client := NewClient(c)
-	client.SetAuthentication(auth)
+	client.setAuthentication(auth)
 
 	return client
 }
