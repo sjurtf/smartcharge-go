@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	LibraryVersion = "0.1.0"
+	LibraryVersion = "0.1.2"
 	DefaultBaseUrl = "https://api.smartcharge.io/"
 	userAgent      = "smartcharge-go/" + LibraryVersion
 
